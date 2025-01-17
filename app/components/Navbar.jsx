@@ -32,8 +32,8 @@ export default function Navbar() {
           {/* Responsive Sidebar -- Only show on recipes page */}
           {pathname === '/recipes' && (
             <>
-              <div className={`${sidebarOpen ? 'fixed inset-0 z-40 bg-black bg-opacity-50' : 'hidden'} md:hidden`} onClick={() => setSidebarOpen(false)} />
-              <div className={`fixed md:relative md:sticky md:block top-0 h-screen w-64 bg-gray-100 shadow-lg transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transition-transform duration-300 ease-in-out z-50`}>
+              <div className={`${sidebarOpen ? 'fixed inset-0 z-40 bg-black bg-opacity-50' : 'hidden'}`} onClick={() => setSidebarOpen(false)} />
+              <div className={`fixed top-16 left-0 h-screen w-64 bg-gray-100 shadow-lg transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transition-transform duration-300 ease-in-out z-50 md:relative md:top-0`}>
                 <RecipeSidebar filters={filters} setFilters={setFilters} />
               </div>
             </>
