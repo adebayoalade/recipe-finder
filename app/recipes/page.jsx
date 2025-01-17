@@ -87,7 +87,7 @@ export default function RecipesPage() {
       <div className="flex flex-col md:flex-row pt-16 min-h-screen">
         {/* Sidebar Toggle Button for Mobile */}
         <button
-          className="md:hidden fixed top-4 right-4 z-50 bg-orange-600 text-white p-3 rounded-full shadow-lg"
+          className="md:hidden fixed top-3  right-20 z-50 text-black p-2  shadow-lg"
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
