@@ -17,21 +17,20 @@ export default function RecipesPage() {
   const [recipes, setRecipes] = useState([])
   const [loading, setLoading] = useState(true)
   const [filters, setFilters] = useState({})
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const { favorites, addToFavorites, removeFromFavorites, isFavorite } = useFavorites()
 
   useEffect(() => {
     const fetchRecipes = async () => {
       setLoading(true)
       try {
-        // Build query parameters based on filters
         let queryParams = new URLSearchParams({
           type: TYPE,
           app_id: APP_ID,
           app_key: APP_KEY,
-          q: 'popular' // Default query
+          q: 'popular'
         })
 
-        // Add diet filters
         if (filters.diet) {
           Object.keys(filters.diet).forEach(diet => {
             if (filters.diet[diet]) {
@@ -40,7 +39,6 @@ export default function RecipesPage() {
           })
         }
 
-        // Add meal type filters
         if (filters.mealType) {
           Object.keys(filters.mealType).forEach(meal => {
             if (filters.mealType[meal]) {
@@ -49,7 +47,6 @@ export default function RecipesPage() {
           })
         }
 
-        // Add cuisine type filters
         if (filters.cuisine) {
           Object.keys(filters.cuisine).forEach(cuisine => {
             if (filters.cuisine[cuisine]) {
@@ -58,7 +55,6 @@ export default function RecipesPage() {
           })
         }
 
-        // Add calories filter
         if (filters.calories) {
           const [min, max] = filters.calories.split('-')
           if (max === '+') {
@@ -88,10 +84,24 @@ export default function RecipesPage() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       
-      <div className="flex pt-16">
-        <RecipeSidebar filters={filters} setFilters={setFilters} />
+      <div className="flex flex-col md:flex-row pt-16">
+        {/* Sidebar Toggle Button for Mobile */}
+        <button
+          className="md:hidden fixed bottom-4 right-4 z-50 bg-orange-600 text-white p-3 rounded-full shadow-lg"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </button>
+
+        {/* Responsive Sidebar */}
+        <div className={`${sidebarOpen ? 'fixed inset-0 z-40 bg-black bg-opacity-50' : 'hidden'} md:hidden`} onClick={() => setSidebarOpen(false)} />
+        <div className={`fixed inset-y-0 left-0 z-40 w-64 bg-white transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 ease-in-out`}>
+          <RecipeSidebar filters={filters} setFilters={setFilters} />
+        </div>
         
-        <main className="flex-1 ml-64 p-8">
+        <main className="flex-1 p-4 md:p-8 md:ml-64">
           {loading ? (
             <div className="flex items-center justify-center h-64">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600"></div>
@@ -102,24 +112,23 @@ export default function RecipesPage() {
               <p className="text-gray-600">Try adjusting your filters</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {recipes.map((recipe, index) => (
                 <div 
                   key={`${recipe.uri}-${index}`}
                   className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow"
                 >
                   <div className="relative">
-                    <div className="relative h-48">
+                    <div className="relative h-48 w-full">
                       <Image
                         src={recipe.image}
                         alt={recipe.label}
                         fill
                         className="object-cover"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                     </div>
                     
-                    {/* Save Button */}
                     <button
                       onClick={() => isFavorite(recipe.uri) ? removeFromFavorites(recipe.uri) : addToFavorites(recipe)}
                       className="absolute top-4 right-4 p-2 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors"
@@ -140,8 +149,8 @@ export default function RecipesPage() {
                     </button>
                   </div>
                   
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <div className="p-4 md:p-6">
+                    <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-2">
                       {recipe.label}
                     </h3>
                     
@@ -149,7 +158,7 @@ export default function RecipesPage() {
                       {recipe.cuisineType?.map((cuisine, idx) => (
                         <span 
                           key={`${cuisine}-${idx}`}
-                          className="px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+                          className="px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs md:text-sm"
                         >
                           {cuisine}
                         </span>
