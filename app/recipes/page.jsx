@@ -85,7 +85,7 @@ export default function RecipesPage() {
       <Navbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
       
       <div className="flex flex-col md:flex-row pt-16 min-h-screen">
-        {/* Sidebar Toggle Button for Mobile */}
+        {/* Sidebar toggle Button for Mobile */}
         <button
           className="md:hidden fixed top-3  right-20 z-50 text-black p-2  shadow-lg"
           onClick={() => setSidebarOpen(!sidebarOpen)}
