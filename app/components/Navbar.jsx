@@ -29,7 +29,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Responsive Sidebar - Only show on recipes page */}
+          {/* Responsive Sidebar -- Only show on recipes page */}
           {pathname === '/recipes' && (
             <>
               <div className={`${sidebarOpen ? 'fixed inset-0 z-40 bg-black bg-opacity-50' : 'hidden'} md:hidden`} onClick={() => setSidebarOpen(false)} />
