@@ -38,7 +38,7 @@ export default function RecipeSidebar({ filters, setFilters }) {
   }
 
   return (
-    <div className="w-64 bg-white shadow-lg p-6 h-screen overflow-y-auto fixed">
+    <div className="lg:w-64 w-full bg-white shadow-lg p-4 lg:p-6 lg:h-screen lg:overflow-y-auto lg:fixed relative">
       <h2 className="text-xl font-semibold text-gray-900 mb-6">Filter Recipes</h2>
 
       {/* Calories Range */}
