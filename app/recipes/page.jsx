@@ -84,7 +84,7 @@ export default function RecipesPage() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       
-      <div className="flex flex-col md:flex-row pt-16">
+      <div className="flex flex-col md:flex-row pt-16 min-h-screen">
         {/* Sidebar Toggle Button for Mobile */}
         <button
           className="md:hidden fixed bottom-4 right-4 z-50 bg-orange-600 text-white p-3 rounded-full shadow-lg"
@@ -97,11 +97,11 @@ export default function RecipesPage() {
 
         {/* Responsive Sidebar */}
         <div className={`${sidebarOpen ? 'fixed inset-0 z-40 bg-black bg-opacity-50' : 'hidden'} md:hidden`} onClick={() => setSidebarOpen(false)} />
-        <div className={`fixed inset-y-0 left-0 z-40 w-64 bg-white transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 ease-in-out`}>
+        <div className={`fixed md:sticky top-0 h-screen w-64 bg-white transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transition-transform duration-300 ease-in-out`}>
           <RecipeSidebar filters={filters} setFilters={setFilters} />
         </div>
         
-        <main className="flex-1 p-4 md:p-8 md:ml-64">
+        <main className="flex-1 p-4 md:p-8">
           {loading ? (
             <div className="flex items-center justify-center h-64">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600"></div>
