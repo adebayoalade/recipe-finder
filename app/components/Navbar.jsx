@@ -3,13 +3,20 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { useFavorites } from '../context/FavoritesContext'
+import RecipeSidebar from '../components/RecipeSidebar'
+import { usePathname } from 'next/navigation'
 
 export default function Navbar() {
   const { favorites } = useFavorites()
   const [isOpen, setIsOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const pathname = usePathname()
 
   const toggleMenu = () => {
     setIsOpen(!isOpen)
+    if (pathname === '/recipes') {
+      setSidebarOpen(!sidebarOpen)
+    }
   }
 
   return (
@@ -21,6 +28,16 @@ export default function Navbar() {
               Recipe Finder
             </Link>
           </div>
+
+          {/* Responsive Sidebar - Only show on recipes page */}
+          {pathname === '/recipes' && (
+            <>
+              <div className={`${sidebarOpen ? 'fixed inset-0 z-40 bg-black bg-opacity-50' : 'hidden'} md:hidden`} onClick={() => setSidebarOpen(false)} />
+              <div className={`fixed md:relative md:sticky md:block top-0 h-screen w-64 bg-gray-100 shadow-lg transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transition-transform duration-300 ease-in-out z-50`}>
+                <RecipeSidebar filters={filters} setFilters={setFilters} />
+              </div>
+            </>
+          )}
 
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-4">
