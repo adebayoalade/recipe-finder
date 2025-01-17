@@ -58,7 +58,7 @@ export default function RecipeSidebar({ filters, setFilters }) {
         </select>
       </div>
 
-      {/* Diet Types */}
+      {/* Diet Type */}
       <div className="mb-6">
         <h3 className="text-sm font-medium text-gray-900 mb-2">Diet</h3>
         <div className="space-y-2">
